@@ -2,6 +2,7 @@ const express = require("express");
 const crypto = require("crypto");
 
 const app = express();
+app.use(express.static(".")); //
 app.use(express.json());
 
 let products = [];
