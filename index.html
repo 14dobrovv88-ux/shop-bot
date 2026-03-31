@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop Bot</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+    .product {
+      border: 1px solid #333;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    button {
+      background: #00ff88;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🛒 Мой магазин</h1>
+
+<div id="products"></div>
+
+<script>
+fetch("/products")
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("products");
+
+    data.forEach(p => {
+      const div = document.createElement("div");
+      div.className = "product";
+
+      div.innerHTML = `
+        <h2>${p.name}</h2>
+        <p>${p.price} грн</p>
+        <button onclick="buy()">Купить</button>
+      `;
+
+      container.appendChild(div);
+    });
+  });
+
+function buy() {
+  fetch("/pay", { method: "POST" })
+    .then(res => res.json())
+    .then(data => {
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = data.url;
+
+      form.innerHTML = `
+        <input name="data" value="${data.data}" hidden>
+        <input name="signature" value="${data.signature}" hidden>
+      `;
+
+      document.body.appendChild(form);
+      form.submit();
+    });
+}
+</script>
+
+</body>
+</html>
