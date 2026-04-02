@@ -1,5 +1,20 @@
 [
-  { "id": 1, "name": "LED лампа RGB", "price": 299 },
-  { "id": 2, "name": "Беспроводные наушники", "price": 899 },
-  { "id": 3, "name": "Power Bank 20000mAh", "price": 1199 }
+  {
+    "id": 1,
+    "name": "LED лампа RGB",
+    "price": 299,
+    "image": "https://ae01.alicdn.com/kf/Sample1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Беспроводные наушники",
+    "price": 899,
+    "image": "https://ae01.alicdn.com/kf/Sample2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Power Bank 20000mAh",
+    "price": 1199,
+    "image": "https://ae01.alicdn.com/kf/Sample3.jpg"
+  }
 ]
