@@ -3,21 +3,35 @@
     "id": 1,
     "name": "LED лампа RGB",
     "price": 299,
-    "image": "https://via.placeholder.com/200",
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
     "desc": "Кольорова лампа з пультом"
   },
   {
     "id": 2,
     "name": "Бездротові навушники",
     "price": 899,
-    "image": "https://via.placeholder.com/200",
+    "image": "https://images.unsplash.com/photo-1518444028785-8c1c19b3f3b9",
     "desc": "Bluetooth навушники"
   },
   {
     "id": 3,
     "name": "Power Bank 20000mAh",
     "price": 1199,
-    "image": "https://via.placeholder.com/200",
+    "image": "https://images.unsplash.com/photo-1580910051074-3eb694886505",
     "desc": "Швидка зарядка"
+  },
+  {
+    "id": 4,
+    "name": "Смарт годинник",
+    "price": 1599,
+    "image": "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b",
+    "desc": "Фітнес трекер"
+  },
+  {
+    "id": 5,
+    "name": "LED стрічка",
+    "price": 499,
+    "image": "https://images.unsplash.com/photo-1603575448366-153f093fd0d5",
+    "desc": "Підсвітка кімнати"
   }
 ]
