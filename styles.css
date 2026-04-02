@@ -1,0 +1,25 @@
+body { margin:0; font-family:Arial; background:#0f172a; color:white; }
+
+header { background:#020617; padding:20px; text-align:center; font-size:24px; }
+
+.grid { display:flex; flex-wrap:wrap; justify-content:center; }
+
+.card {
+  background:#1e293b;
+  margin:15px;
+  padding:15px;
+  border-radius:10px;
+  width:220px;
+  text-align:center;
+}
+
+.card img { width:100%; border-radius:8px; }
+
+button {
+  background:#22c55e;
+  border:none;
+  padding:10px;
+  margin-top:10px;
+  width:100%;
+  cursor:pointer;
+}
