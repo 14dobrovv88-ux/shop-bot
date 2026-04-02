@@ -3,18 +3,21 @@
     "id": 1,
     "name": "LED лампа RGB",
     "price": 299,
-    "image": "https://ae01.alicdn.com/kf/Sample1.jpg"
+    "image": "https://via.placeholder.com/200",
+    "desc": "Кольорова лампа з пультом"
   },
   {
     "id": 2,
-    "name": "Беспроводные наушники",
+    "name": "Бездротові навушники",
     "price": 899,
-    "image": "https://ae01.alicdn.com/kf/Sample2.jpg"
+    "image": "https://via.placeholder.com/200",
+    "desc": "Bluetooth навушники"
   },
   {
     "id": 3,
     "name": "Power Bank 20000mAh",
     "price": 1199,
-    "image": "https://ae01.alicdn.com/kf/Sample3.jpg"
+    "image": "https://via.placeholder.com/200",
+    "desc": "Швидка зарядка"
   }
 ]
