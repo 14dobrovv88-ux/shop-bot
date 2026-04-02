@@ -2,31 +2,36 @@
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
 <title>Магазин</title>
 </head>
 <body>
 
-<h1>🛒 Магазин</h1>
-<div id="products"></div>
+<header>🛒 Магазин</header>
+
+<div class="grid" id="products"></div>
+
+<script src="script.js"></script>
 
 <script>
 fetch("/products")
 .then(r=>r.json())
 .then(data=>{
   data.forEach(p=>{
-    document.body.innerHTML += `
-      <div>
+    document.getElementById("products").innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
         <h3>${p.name}</h3>
-        <img src="${p.image}" width="150">
         <p>${p.price} грн</p>
-        <a href="/product.html?id=${p.id}">Детальніше</a>
+        <button onclick='addToCart(${JSON.stringify(p)})'>В кошик</button>
+        <a href="product.html?id=${p.id}">Детальніше</a>
       </div>
     `;
   });
 });
 </script>
 
-<a href="/cart.html">🧺 Перейти в корзину</a>
+<a href="cart.html">🧺 Кошик</a>
 
 </body>
 </html>
