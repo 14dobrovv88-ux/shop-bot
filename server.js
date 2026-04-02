@@ -16,7 +16,10 @@ app.get("/products", (req, res) => {
 app.post("/order", (req, res) => {
   const order = req.body;
 
-  const orders = JSON.parse(fs.readFileSync("orders.json", "utf-8") || "[]");
+  let orders = [];
+  try {
+    orders = JSON.parse(fs.readFileSync("orders.json"));
+  } catch {}
 
   orders.push({
     ...order,
@@ -25,13 +28,11 @@ app.post("/order", (req, res) => {
 
   fs.writeFileSync("orders.json", JSON.stringify(orders, null, 2));
 
-  console.log("Новый заказ:", order);
-
   res.send({ success: true });
 });
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("Server started");
+  console.log("🚀 Server started");
 });
