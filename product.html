@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="uk">
-<head><meta charset="UTF-8"></head>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
 <body>
 
 <div id="product"></div>
+
+<script src="script.js"></script>
 
 <script>
 const id = new URLSearchParams(location.search).get("id");
@@ -14,23 +19,18 @@ fetch("/products")
   const p = data.find(x=>x.id==id);
 
   document.getElementById("product").innerHTML = `
-    <h1>${p.name}</h1>
-    <img src="${p.image}" width="200">
-    <p>${p.desc}</p>
-    <p>${p.price} грн</p>
-    <button onclick='add(${JSON.stringify(p)})'>В кошик</button>
+    <div class="card">
+      <img src="${p.image}">
+      <h2>${p.name}</h2>
+      <p>${p.desc}</p>
+      <p>${p.price} грн</p>
+      <button onclick='addToCart(${JSON.stringify(p)})'>В кошик</button>
+    </div>
   `;
 });
-
-function add(p){
-  let cart = JSON.parse(localStorage.getItem("cart")||"[]");
-  cart.push(p);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Додано!");
-}
 </script>
 
 <a href="/">← Назад</a>
 
 </body>
-</html>+
+</html>
