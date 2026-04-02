@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Shop Bot</title>
+  <title>Shop</title>
   <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: white;
-      text-align: center;
-    }
-    .product {
-      border: 1px solid #333;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    button {
-      background: #00ff88;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
+    body { font-family: Arial; background:#111; color:#fff; text-align:center; }
+    .product { border:1px solid #333; margin:20px; padding:20px; }
+    button { padding:10px; margin:5px; cursor:pointer; }
   </style>
 </head>
 <body>
 
-<h1>🛒 Мой магазин</h1>
+<h1>🛒 Магазин</h1>
 
 <div id="products"></div>
 
+<h2>🧺 Корзина</h2>
+<div id="cart"></div>
+
+<h2>📦 Оформление</h2>
+<input id="name" placeholder="Имя"><br><br>
+<input id="phone" placeholder="Телефон"><br><br>
+<input id="address" placeholder="Адрес"><br><br>
+<button onclick="order()">Оформить заказ</button>
+
 <script>
+let cart = [];
+
 fetch("/products")
   .then(res => res.json())
   .then(data => {
@@ -41,31 +37,46 @@ fetch("/products")
       div.className = "product";
 
       div.innerHTML = `
-        <h2>${p.name}</h2>
+        <h3>${p.name}</h3>
         <p>${p.price} грн</p>
-        <button onclick="buy()">Купить</button>
+        <button onclick='add(${JSON.stringify(p)})'>В корзину</button>
       `;
 
       container.appendChild(div);
     });
   });
 
-function buy() {
-  fetch("/pay", { method: "POST" })
-    .then(res => res.json())
-    .then(data => {
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = data.url;
+function add(product){
+  cart.push(product);
+  renderCart();
+}
 
-      form.innerHTML = `
-        <input name="data" value="${data.data}" hidden>
-        <input name="signature" value="${data.signature}" hidden>
-      `;
+function renderCart(){
+  const cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
 
-      document.body.appendChild(form);
-      form.submit();
-    });
+  cart.forEach(p => {
+    cartDiv.innerHTML += `<p>${p.name} - ${p.price}</p>`;
+  });
+}
+
+function order(){
+  fetch("/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+      cart
+    })
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Заказ оформлен!");
+    cart = [];
+    renderCart();
+  });
 }
 </script>
 
