@@ -7,8 +7,8 @@ const app = express();
 app.use(express.static("."));
 app.use(express.json());
 
-const TOKEN = "ВСТАВЬ_ТГ_ТОКЕН";
-const CHAT_ID = "ВСТАВЬ_CHAT_ID";
+const TOKEN = "8683490951:AAHrY_TlXy0eb9Cfi-TZuyR7t_PKiIliYY4";
+const CHAT_ID = "6242720400";
 
 // товары
 app.get("/products", (req, res) => {
