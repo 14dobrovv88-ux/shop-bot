@@ -1,59 +1,33 @@
 const express = require("express");
-const crypto = require("crypto");
+const fs = require("fs");
 
 const app = express();
-app.use(express.static(".")); //
-app.use(express.json());
 
-let products = [];
-let orders = [];
+app.use(express.static("."));
+app.use(express.json());
 
 // ===== ТОВАРЫ =====
 app.get("/products", (req, res) => {
-  res.send(products);
+  const data = fs.readFileSync("products.json");
+  res.json(JSON.parse(data));
 });
 
-app.get("/add-test", (req, res) => {
-  products.push({
-    name: "LED лампа",
-    price: 299
+// ===== ЗАКАЗ =====
+app.post("/order", (req, res) => {
+  const order = req.body;
+
+  const orders = JSON.parse(fs.readFileSync("orders.json", "utf-8") || "[]");
+
+  orders.push({
+    ...order,
+    date: new Date()
   });
-  res.send("Товар добавлен");
-});
 
-// ===== LIQPAY =====
-function sign(data, privateKey) {
-  const base64 = Buffer.from(JSON.stringify(data)).toString("base64");
-  const str = privateKey + base64 + privateKey;
-  return {
-    data: base64,
-    signature: crypto.createHash("sha1").update(str).digest("base64")
-  };
-}
+  fs.writeFileSync("orders.json", JSON.stringify(orders, null, 2));
 
-app.post("/pay", (req, res) => {
-  const total = 100;
+  console.log("Новый заказ:", order);
 
-  const data = {
-    public_key: process.env.LIQPAY_PUBLIC_KEY,
-    version: "3",
-    action: "pay",
-    amount: total,
-    currency: "UAH",
-    description: "Оплата заказа",
-    order_id: "order_" + Date.now(),
-    server_url: process.env.RENDER_EXTERNAL_URL + "/webhook",
-    result_url: process.env.RENDER_EXTERNAL_URL
-  };
-
-  const s = sign(data, process.env.LIQPAY_PRIVATE_KEY);
-  res.send({ ...s, url: "https://www.liqpay.ua/api/3/checkout" });
-});
-
-// ===== WEBHOOK =====
-app.post("/webhook", (req, res) => {
-  console.log("Оплата прошла");
-  res.send("ok");
+  res.send({ success: true });
 });
 
 const PORT = process.env.PORT;
