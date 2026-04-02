@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>🧺 Кошик</h1>
+<div id="cart"></div>
+
+<input id="name" placeholder="Ім'я">
+<input id="phone" placeholder="Телефон">
+<input id="address" placeholder="Адреса">
+
+<button onclick="order()">Оформити</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")||"[]");
+
+function render(){
+  let html = "";
+  cart.forEach(p=>{
+    html += `<p>${p.name} - ${p.price}</p>`;
+  });
+  document.getElementById("cart").innerHTML = html;
+}
+render();
+
+function order(){
+  fetch("/order",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      name:name.value,
+      phone:phone.value,
+      address:address.value,
+      cart
+    })
+  }).then(()=>{
+    alert("Замовлення відправлено");
+    localStorage.removeItem("cart");
+    location.reload();
+  });
+}
+</script>
+
+</body>
+</html>
